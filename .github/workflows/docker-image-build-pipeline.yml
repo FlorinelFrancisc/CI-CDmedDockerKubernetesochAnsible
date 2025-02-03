@@ -1,0 +1,27 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main # Runs when changes are pushed to 'main' branch
+    tags:
+      - "v*.*.*" # Runs when a new version tag is pushed (e.g., v1.0.0)
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ github.repository }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/nginx-app:latest .
+
+      - name: Push Docker Image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/nginx-app:latest
