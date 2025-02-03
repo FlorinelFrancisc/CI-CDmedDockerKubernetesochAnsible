@@ -3,7 +3,7 @@ name: Build and Push Docker Image
 on:
   push:
     tags:
-      - "v*.*.*" # Only trigger on semantic versioning tags (e.g., v1.0.0, v2.3.1)
+      - "v*.*.*" # Runs when a tag like v1.0.0 is pushed
 
 jobs:
   build-and-push:
@@ -21,10 +21,10 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/nginx-app:${{ env.VERSION }} .
-          docker build -t ghcr.io/${{ github.repository_owner }}/nginx-app:latest .
+          docker build -t ghcr.io/florinelfrancisc/nginx-app:${{ env.VERSION }} .
+          docker build -t ghcr.io/florinelfrancisc/nginx-app:latest .
 
       - name: Push Docker Image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/nginx-app:${{ env.VERSION }}
-          docker push ghcr.io/${{ github.repository_owner }}/nginx-app:latest
+          docker push ghcr.io/florinelfrancisc/nginx-app:${{ env.VERSION }}
+          docker push ghcr.io/florinelfrancisc/nginx-app:latest
