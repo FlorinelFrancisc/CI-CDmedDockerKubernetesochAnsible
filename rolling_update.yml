@@ -25,3 +25,12 @@
     - name: Rollback if update failed
       command: kubectl rollout undo deployment/nginx-app
       when: new_image.stdout != "ghcr.io/florinelfrancisc/nginx-app:latest"
+
+    - name: Get current deployment details
+      command: kubectl get deployment nginx-app -o=jsonpath='{.spec.template.spec.containers[0].image}'
+      register: current_image
+      changed_when: false
+
+    - name: Update Kubernetes Deployment only if a new image is available
+      command: kubectl set image deployment/nginx-app nginx=ghcr.io/florinelfrancisc/nginx-app:latest
+      when: current_image.stdout != "ghcr.io/florinelfrancisc/nginx-app:latest"
