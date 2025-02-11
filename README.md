@@ -66,7 +66,7 @@ A **GitHub Actions pipeline** is already included in `.github/workflows/docker-i
 git push
 ```
 
-💡 GitHub Actions will automatically build and push the image.
+GitHub Actions will automatically build and push the image.
 
 ---
 
@@ -126,11 +126,3 @@ ansible-playbook rolling_update.yml
 ```sh
 kubectl rollout undo deployment/nginx-app
 ```
-
-## **Final Steps**
-
-🔹 **Push your code to GitHub**  
-🔹 **Verify pipeline runs correctly**  
-🔹 **Ensure Kubernetes updates properly**
-
-**Your CI/CD pipeline is now fully automated!**
